@@ -1,0 +1,30 @@
+version: "3.7"
+services:
+  nginx:
+    image: nginx:alpine
+    working_dir: /app
+    ports:
+      - 80:80
+    volumes:
+      - ./:/app
+      - ./nginx/conf.d:/etc/nginx/conf.d
+
+  phpfpm:
+    image: cyberduck/php-fpm-laravel:8.0
+    working_dir: /app
+    volumes:
+      - ./:/app
+
+  db:
+    image: mysql
+    restart: always
+    volumes:
+      - dbdata:/var/lib/mysql
+    environment:
+      MYSQL_DATABASE: db
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: admin
+
+volumes:
+  dbdata:

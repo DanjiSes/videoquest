@@ -29,7 +29,7 @@
                     @break
                     @case('embed')
                         <div class="ratio ratio-16x9 mb-3">
-                            <iframe src="{{ $b->data->embed }}"></iframe>
+                            <iframe src="{{ $b->data->embed }}" allowfullscreen></iframe>
                         </div>
                     @break
                 @endswitch

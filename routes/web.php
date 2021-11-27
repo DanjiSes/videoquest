@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 // View mission
-Route::get('/missions/{id}', 'MissionController@viewMission')->name('viewMission');
+Route::get('/mission/{id}', 'MissionController@viewMission')->name('viewMission');
 
 // Missions CRUD
 

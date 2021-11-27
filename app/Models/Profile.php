@@ -28,7 +28,10 @@ class Profile extends Model
 
     public function loadInfoFromIg()
     {
-        $userInfo = Http::get('https://www.instagram.com/' . $this->soc_uid . '/?__a=1')->json();
+        $userInfo = Http::withHeaders([
+            'cookie' => 'sessionid=' . env('IG_SESSION_ID'),
+        ])->get('https://www.instagram.com/' . $this->soc_uid . '/?__a=1')->json();
+
         $this->name = $userInfo['graphql']['user']['full_name'];
         $this->avatar = $userInfo['graphql']['user']['profile_pic_url'];
     }

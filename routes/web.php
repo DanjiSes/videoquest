@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 
 /**
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 // View mission
-Route::get('/{id}', 'MissionController@viewMission')->name('viewMission');
+Route::get('/missions/{id}', 'MissionController@viewMission')->name('viewMission');
 
 // Missions CRUD
 

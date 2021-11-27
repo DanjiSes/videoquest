@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 // View mission
-Route::get('/', 'MissionController@viewMission')->name('viewMission');
+Route::get('/{id}', 'MissionController@viewMission')->name('viewMission');
 
 // Add new misson
 Route::get('/missions/create', function () {

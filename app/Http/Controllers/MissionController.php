@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 
 class MissionController extends Controller
 {
-    public function viewMission(Request $request)
+    public function viewMission(int $id)
     {
-        return view('mission');
+        return view('mission', ['id' => $id]);
     }
 }

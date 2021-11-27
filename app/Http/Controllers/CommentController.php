@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 
@@ -9,8 +10,16 @@ class CommentController extends Controller
 {
     public function createComment(Request $request)
     {
-        $soc_type = $request->input('utm_soc_type');
-        $soc_uid = $request->input('utm_soc_uid');
+        $request->validate([
+            'soc_type' => 'required',
+            'soc_uid' => 'required',
+            'text' => 'required',
+            'mission_id' => 'required|exists:missions,id',
+        ]);
+
+        $soc_type = $request->input('soc_type');
+        $soc_uid = $request->input('soc_uid');
+        $text = $request->input('text');
 
         $profile = Profile::where('soc_type', $soc_type)->where('soc_uid', $soc_uid)->first();
 
@@ -18,13 +27,19 @@ class CommentController extends Controller
             $profile = new Profile();
             $profile->soc_type = $soc_type;
             $profile->soc_uid = $soc_uid;
+            $profile->loadInfo();
             $profile->save();
         }
 
         $profile->loadInfo();
+        $profile->save();
 
-        // Create comment
+        $comment = new Comment();
+        $comment->text = $text;
+        $comment->profile_id = $profile->id;
+        $comment->mission_id = $profile->id;
+        $comment->save();
 
-        dd($profile, $soc_type, $soc_uid);
+        return redirect()->back();
     }
 }

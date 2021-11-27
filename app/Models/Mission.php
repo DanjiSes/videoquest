@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Mission extends Model
 {
     use HasFactory;
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

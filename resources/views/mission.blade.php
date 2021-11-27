@@ -44,8 +44,9 @@
                 <form action="{{ route('createComment') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <input type="hidden" name="utm_soc_type" value="ig">
-                        <input type="hidden" name="utm_soc_uid" value="savchenko.dev">
+                        <input type="hidden" name="soc_type" value="{{ $soc_type }}">
+                        <input type="hidden" name="soc_uid" value="{{ $soc_uid }}">
+                        <input type="hidden" name="mission_id" value="{{ $mission_id }}">
                         <textarea rows="6" class="form-control" placeholder="Ваш комментарий" name="text"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary d-block ms-auto">Отправить</button>
@@ -55,59 +56,27 @@
 
         <h2 class="h3">Комментарии:</h2>
 
-        <div class="card mb-3">
-            <div class="card-body d-flex">
-                <div class="rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
-                    <img style="width: 100%; heigth: 100%; object-fit: cover"
-                        src="https://sun1-90.userapi.com/impf/c852032/v852032793/1be6/fb0O6fM_VPE.jpg?size=50x0&quality=96&crop=51,180,721,721&sign=08b35ba572173dd4bef466f2e23d236b&c_uniq_tag=vnUYVRGtRO6xglxApMTs9Sv3bP3dsBFmAAuIuesw7JU&ava=1"
-                        alt="">
-                </div>
-                <div>
-                    <b class="text-primary">Семен Захратенко</b>
-                    <div style="white-space: pre-line">1. Маркетолог
-                        2. 10 лет
-                        3. Малый бизнес
-                        4. 1000 000
-                        5. 10</div>
-                </div>
-            </div>
-        </div>
+        @forelse ($comments as $comment)
 
-        <div class="card mb-3">
-            <div class="card-body d-flex">
-                <div class="rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
-                    <img style="width: 100%; heigth: 100%; object-fit: cover"
-                        src="https://sun1-90.userapi.com/impf/c852032/v852032793/1be6/fb0O6fM_VPE.jpg?size=50x0&quality=96&crop=51,180,721,721&sign=08b35ba572173dd4bef466f2e23d236b&c_uniq_tag=vnUYVRGtRO6xglxApMTs9Sv3bP3dsBFmAAuIuesw7JU&ava=1"
-                        alt="">
-                </div>
-                <div>
-                    <b class="text-primary">Семен Захратенко</b>
-                    <div style="white-space: pre-line">1. Маркетолог
-                        2. 10 лет
-                        3. Малый бизнес
-                        4. 1000 000
-                        5. 10</div>
+            <div class="card mb-3">
+                <div class="card-body d-flex">
+                    <div class="rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
+                        <img style="width: 100%; heigth: 100%; object-fit: cover" src="{{ $comment->profile->avatar }}"
+                            alt="">
+                    </div>
+                    <div>
+                        <b class="text-primary">{{ $comment->profile->name }}</b>
+                        <div style="white-space: pre-line">{{ $comment->text }}</div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="card mb-3">
-            <div class="card-body d-flex">
-                <div class="rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
-                    <img style="width: 100%; heigth: 100%; object-fit: cover"
-                        src="https://sun1-90.userapi.com/impf/c852032/v852032793/1be6/fb0O6fM_VPE.jpg?size=50x0&quality=96&crop=51,180,721,721&sign=08b35ba572173dd4bef466f2e23d236b&c_uniq_tag=vnUYVRGtRO6xglxApMTs9Sv3bP3dsBFmAAuIuesw7JU&ava=1"
-                        alt="">
-                </div>
-                <div>
-                    <b class="text-primary">Семен Захратенко</b>
-                    <div style="white-space: pre-line">1. Маркетолог
-                        2. 10 лет
-                        3. Малый бизнес
-                        4. 1000 000
-                        5. 10</div>
-                </div>
-            </div>
-        </div>
+        @empty
+
+            <div>Комментариев пока нет. Будь первым!</div>
+
+        @endforelse
+
     </div>
 
 @endsection

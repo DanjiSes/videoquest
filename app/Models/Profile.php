@@ -5,6 +5,8 @@ namespace App\Models;
 use Error;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use VK\Client\Enums\VKLanguage;
+use VK\Client\VKApiClient;
 
 class Profile extends Model
 {
@@ -30,5 +32,12 @@ class Profile extends Model
 
     public function loadInfoFromVk()
     {
+        $vk = new VKApiClient('5.131', VKLanguage::RUSSIAN);
+        $userInfo = $vk->users()->get(env('VK_ACCESS_TOKEN'), [
+            'user_ids'  => [$this->soc_uid],
+            'fields'    => ['photo'],
+        ])[0];
+        $this->name = $userInfo['first_name'] . ' ' . $userInfo['last_name'];
+        $this->avatar = $userInfo['photo'];
     }
 }

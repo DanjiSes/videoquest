@@ -17,6 +17,17 @@ class CreateCommentsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->text('text');
+            // Relations
+            $table->unsignedBigInteger('profile_id');
+            $table->unsignedBigInteger('mission_id');
+
+            $table->foreign('profile_id')
+                ->references('id')->on('profiles')
+                ->onDelete('cascade');
+
+            $table->foreign('mission_id')
+                ->references('id')->on('missions')
+                ->onDelete('cascade');
         });
     }
 

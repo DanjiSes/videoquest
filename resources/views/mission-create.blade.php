@@ -33,14 +33,7 @@
                 header: Header,
                 list: List,
                 textAlign: TextAlign,
-                embed: {
-                    class: Embed,
-                    config: {
-                        services: {
-                            youtube: true,
-                        }
-                    }
-                },
+                class: Embed,
             },
             data: {},
         })

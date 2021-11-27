@@ -33,7 +33,7 @@ class Profile extends Model
         ])->get('https://www.instagram.com/' . $this->soc_uid . '/?__a=1')->json();
 
         $this->name = $userInfo['graphql']['user']['full_name'];
-        $this->avatar = $userInfo['graphql']['user']['profile_pic_url'];
+        $this->avatar = $userInfo['graphql']['user']['profile_pic_url_hd'];
     }
 
     public function loadInfoFromVk()

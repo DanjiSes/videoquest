@@ -2,7 +2,10 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
@@ -11,6 +14,8 @@
         "laravel/framework": "^8.65",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "phpfastcache/phpfastcache": "^9.0",
+        "raiym/instagram-php-scraper": "^0.12.0",
         "vkcom/vk-php-sdk": "^5.101"
     },
     "require-dev": {

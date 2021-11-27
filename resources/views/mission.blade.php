@@ -38,20 +38,29 @@
 
         <div class="card mb-4">
             <div class="card-header">
-                314 комментариев
+                {{ $comments->count() }} комментариев
             </div>
-            <div class="card-body">
-                <form action="{{ route('createComment') }}" method="POST">
-                    @csrf
-                    <div class="mb-3">
-                        <input type="hidden" name="soc_type" value="{{ $soc_type }}">
-                        <input type="hidden" name="soc_uid" value="{{ $soc_uid }}">
-                        <input type="hidden" name="mission_id" value="{{ $mission_id }}">
-                        <textarea rows="6" class="form-control" placeholder="Ваш комментарий" name="text"></textarea>
+            @if ($profile)
+
+                <div class="card-body d-flex">
+                    <div class="rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
+                        <img style="width: 100%; heigth: 100%; object-fit: cover" src="{{ $profile->avatar }}" alt="">
                     </div>
-                    <button type="submit" class="btn btn-primary d-block ms-auto">Отправить</button>
-                </form>
-            </div>
+                    <form action="{{ route('createComment') }}" method="POST" style="flex: auto">
+                        @csrf
+                        <input type="hidden" name="mission_id" value="{{ $mission_id }}">
+                        <input type="hidden" name="profile_id" value="{{ $profile->id }}">
+                        <div class="mb-3">
+                            <label for="text" class="mb-2">
+                                <b class="text-primary">{{ $profile->name }}</b>
+                            </label>
+                            <textarea rows="6" class="form-control" placeholder="Ваш комментарий" name="text"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary d-block ms-auto">Отправить</button>
+                    </form>
+                </div>
+
+            @endif
         </div>
 
         <h2 class="h3">Комментарии:</h2>
@@ -65,7 +74,8 @@
                             alt="">
                     </div>
                     <div>
-                        <b class="text-primary">{{ $comment->profile->name }} ({{ $comment->profile->soc_type }})</b>
+                        <b class="text-primary">{{ $comment->profile->name }}
+                            ({{ $comment->profile->soc_type }})</b>
                         <div style="white-space: pre-line">{{ $comment->text }}</div>
                     </div>
                 </div>

@@ -1,7 +1,9 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
+use Intervention\Image\ImageManagerStatic;
 
 /**
  * 1. View mission
@@ -13,6 +15,10 @@ use Illuminate\Support\Facades\Route;
  */
 
 // View mission
+Route::get('/', function () {
+    return redirect(route('createMissionForm'));
+});
+
 Route::get('/mission/{id}', 'MissionController@viewMission')->name('viewMission');
 
 // Missions CRUD

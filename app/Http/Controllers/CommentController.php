@@ -11,33 +11,20 @@ class CommentController extends Controller
     public function createComment(Request $request)
     {
         $request->validate([
-            'soc_type' => 'required',
-            'soc_uid' => 'required',
             'text' => 'required',
             'mission_id' => 'required|exists:missions,id',
+            'profile_id' => 'required|exists:profiles,id',
         ]);
 
-        $soc_type = $request->input('soc_type');
-        $soc_uid = $request->input('soc_uid');
+
         $text = $request->input('text');
-
-        $profile = Profile::where('soc_type', $soc_type)->where('soc_uid', $soc_uid)->first();
-
-        if ($profile === null) {
-            $profile = new Profile();
-            $profile->soc_type = $soc_type;
-            $profile->soc_uid = $soc_uid;
-            $profile->loadInfo();
-            $profile->save();
-        }
-
-        $profile->loadInfo();
-        $profile->save();
+        $mission_id = $request->input('mission_id');
+        $profile_id = $request->input('profile_id');
 
         $comment = new Comment();
         $comment->text = $text;
-        $comment->profile_id = $profile->id;
-        $comment->mission_id = $profile->id;
+        $comment->profile_id = $profile_id;
+        $comment->mission_id = $mission_id;
         $comment->save();
 
         return redirect()->back();

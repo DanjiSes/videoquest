@@ -28,12 +28,11 @@ class Profile extends Model
 
     public function loadInfoFromIg()
     {
-        $userInfo = Http::withHeaders([
-            'cookie' => 'sessionid=' . env('IG_SESSION_ID'),
-        ])->get('https://www.instagram.com/' . $this->soc_uid . '/?__a=1')->json();
+        $instagram = new \InstagramScraper\Instagram(new \GuzzleHttp\Client());
+        $account = $instagram->getAccount($this->soc_uid);
 
-        $this->name = $userInfo['graphql']['user']['full_name'];
-        $this->avatar = $userInfo['graphql']['user']['profile_pic_url_hd'];
+        $this->name = $account->getFullName();
+        $this->avatar = $account->getProfilePicUrl();
     }
 
     public function loadInfoFromVk()

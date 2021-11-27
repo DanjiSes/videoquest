@@ -1,9 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
-use Intervention\Image\ImageManagerStatic;
 
 /**
  * 1. View mission
@@ -32,3 +30,8 @@ Route::post('/missions', 'MissionController@createMission')->name('createMission
 // Add comments
 
 Route::post('/comments', 'CommentController@createComment')->name('createComment');
+
+Route::get('/proxy', function (Request $request) {
+    $url = $request->input('url');
+    readfile('http://corsproxy:8080/');
+});

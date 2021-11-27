@@ -20,6 +20,4 @@ Route::get('/missions/create', function () {
     return view('mission-create');
 })->name('createMissionForm');
 
-Route::post('/missions', function () {
-    return 'mission ceated';
-})->name('createMission');
+Route::post('/missions', 'MissionController@createMission')->name('createMission');

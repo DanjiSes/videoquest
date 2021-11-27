@@ -5,7 +5,7 @@
     <div class="container py-5" style="max-width: 650px;">
         <h1>Создать миссию</h1>
 
-        <form action="{{ route('createMission') }}" id="content-form">
+        <form action="{{ route('createMission') }}" method="POST" id="content-form">
             @csrf
 
             <div class="mb-3">
@@ -40,13 +40,59 @@
                     }
                 },
             },
-            data: {},
+            data: {
+                "time": 1638015521538,
+                "blocks": [{
+                    "id": "9tA-t2sUnZ",
+                    "type": "header",
+                    "data": {
+                        "text": "Hallo world!",
+                        "level": 1
+                    }
+                }, {
+                    "id": "0tGWJ8Q1Xv",
+                    "type": "header",
+                    "data": {
+                        "text": "Sub",
+                        "level": 2
+                    }
+                }, {
+                    "id": "BPcSDd64qO",
+                    "type": "paragraph",
+                    "data": {
+                        "text": "alskfjalskfjajfljlf;alsfd"
+                    }
+                }, {
+                    "id": "wuTxh7SOTF",
+                    "type": "list",
+                    "data": {
+                        "style": "ordered",
+                        "items": ["aljlaskfa", "afas", "df", "af", "asf"]
+                    }
+                }, {
+                    "id": "ZXC41cPC1z",
+                    "type": "embed",
+                    "data": {
+                        "service": "youtube",
+                        "source": "https://www.youtube.com/watch?v=n9Y2Eb4BaSg",
+                        "embed": "https://www.youtube.com/embed/n9Y2Eb4BaSg",
+                        "width": 580,
+                        "height": 320,
+                        "caption": ""
+                    }
+                }],
+                "version": "2.22.2"
+            },
         })
 
         const contentForm = document.querySelector('#content-form');
+        const submitButton = document.querySelector('#content-form button[type="submit"]');
 
         contentForm.onsubmit = function(e) {
             e.preventDefault();
+
+            submitButton.disabled = true;
+            submitButton.textContent = 'Загрузка...'
 
             editor.save().then((outputData) => {
                 contentForm.content.value = JSON.stringify(outputData);

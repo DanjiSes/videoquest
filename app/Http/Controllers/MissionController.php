@@ -10,4 +10,9 @@ class MissionController extends Controller
     {
         return view('mission', ['id' => $id]);
     }
+
+    public function createMission(Request $request)
+    {
+        dd($request->input('content'));
+    }
 }

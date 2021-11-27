@@ -24,6 +24,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/list@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@canburaks/text-align-editorjs@latest"></script>
 
     <script>
         const editor = new EditorJS({
@@ -31,6 +32,7 @@
             tools: {
                 header: Header,
                 list: List,
+                textAlign: TextAlign,
                 embed: {
                     class: Embed,
                     config: {
@@ -40,49 +42,7 @@
                     }
                 },
             },
-            data: {
-                "time": 1638015521538,
-                "blocks": [{
-                    "id": "9tA-t2sUnZ",
-                    "type": "header",
-                    "data": {
-                        "text": "Hallo world!",
-                        "level": 1
-                    }
-                }, {
-                    "id": "0tGWJ8Q1Xv",
-                    "type": "header",
-                    "data": {
-                        "text": "Sub",
-                        "level": 2
-                    }
-                }, {
-                    "id": "BPcSDd64qO",
-                    "type": "paragraph",
-                    "data": {
-                        "text": "alskfjalskfjajfljlf;alsfd"
-                    }
-                }, {
-                    "id": "wuTxh7SOTF",
-                    "type": "list",
-                    "data": {
-                        "style": "ordered",
-                        "items": ["aljlaskfa", "afas", "df", "af", "asf"]
-                    }
-                }, {
-                    "id": "ZXC41cPC1z",
-                    "type": "embed",
-                    "data": {
-                        "service": "youtube",
-                        "source": "https://www.youtube.com/watch?v=n9Y2Eb4BaSg",
-                        "embed": "https://www.youtube.com/embed/n9Y2Eb4BaSg",
-                        "width": 580,
-                        "height": 320,
-                        "caption": ""
-                    }
-                }],
-                "version": "2.22.2"
-            },
+            data: {},
         })
 
         const contentForm = document.querySelector('#content-form');

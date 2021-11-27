@@ -10,19 +10,19 @@
                         <h{{ $b->data->level }}>{{ $b->data->text }}</h{{ $b->data->level }}>
                     @break
                     @case('paragraph')
-                        <p>{{ $b->data->text }}</p>
+                        <p>{!! $b->data->text !!}</p>
                     @break
                     @case('list')
                         @if ($b->data->style === 'ordered')
                             <ol>
                                 @foreach ($b->data->items as $li)
-                                    <li>{{ $li }}</li>
+                                    <li>{!! $li !!}</li>
                                 @endforeach
                             </ol>
                         @elseif ($b->data->style === 'unordered')
                             <ul>
                                 @foreach ($b->data->items as $li)
-                                    <li>{{ $li }}</li>
+                                    <li>{!! $li !!}</li>
                                 @endforeach
                             </ul>
                         @endif

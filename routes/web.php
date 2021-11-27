@@ -21,3 +21,7 @@ Route::get('/missions/create', function () {
 })->name('createMissionForm');
 
 Route::post('/missions', 'MissionController@createMission')->name('createMission');
+
+// Add comments
+
+Route::post('/comments', 'CommentController@createComment')->name('createComment');

@@ -41,9 +41,12 @@
                 314 комментариев
             </div>
             <div class="card-body">
-                <form action="#" method="POST">
+                <form action="{{ route('createComment') }}" method="POST">
+                    @csrf
                     <div class="mb-3">
-                        <textarea rows="6" class="form-control" placeholder="Ваш комментарий"></textarea>
+                        <input type="hidden" name="utm_soc_type" value="ig">
+                        <input type="hidden" name="utm_soc_uid" value="savchenko.dev">
+                        <textarea rows="6" class="form-control" placeholder="Ваш комментарий" name="text"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary d-block ms-auto">Отправить</button>
                 </form>

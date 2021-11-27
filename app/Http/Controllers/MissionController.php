@@ -9,7 +9,9 @@ class MissionController extends Controller
 {
     public function viewMission(int $id)
     {
-        return view('mission', ['id' => $id]);
+        $mission = Mission::findOrFail($id);
+        $content = json_decode($mission->content);
+        return view('mission', ['content' => $content]);
     }
 
     public function createMission(Request $request)

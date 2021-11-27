@@ -4,42 +4,36 @@
 
     <div class="container py-5">
         <div class="mb-4">
-            <div class="ratio ratio-16x9 mb-3">
-                <iframe src="https://www.youtube.com/embed/oBudL05xvQU" title="YouTube video" allowfullscreen></iframe>
-            </div>
-            <h4>Если ты согласен с идей в видео - значит мы на одной волне!</h4>
-            <p>Выполни задание и получи 200 или 500 популярности!</p>
-            <p>
-                <u>Текстовая методичка урока:</u> <a href="https://vk.com/@broparty_m-lesson-1" target="_blank"> По ссылке
-                </a>
-            </p>
-            <p><b>Задание:</b></p>
-            <p>Определи свою отправную точку в путешествии с БроТусовкой. А уже через несколько месяцев ты оценишь результат
-                работы над собой. Важно максимально конкретно ответить на 5 вопросов: </p>
-            <ol>
-                <li>
-                    Чем ты сейчас занимаешься? Что именно продаешь?
-                </li>
-                <li>
-                    Как давно занимаешься этой деятельностью?
-                </li>
-                <li>
-                    Кому продаешь? (Кто твоя целевая аудитория)
-                </li>
-                <li>
-                    Какой средний чек?
-                </li>
-                <li>
-                    Насколько из 10 доволен своим заработком? 10 - max, 1 - min, 0 - дохода пока нет
-                </li>
-            </ol>
-            <hr>
-            <p><i>Если у тебя есть вопрос или нужна помощь - я всегда на связи в чате БроТусовки</i></p>
-            <hr>
-            <p>
-                <b>Свой ответ на задание пиши в комментарии ниже:</b><br>
-                <small><i>P.S. Не забывай про время на выполнение задания</i></small>
-            </p>
+            @foreach ($content->blocks as $b)
+                @switch($b->type)
+                    @case('header')
+                        <h{{ $b->data->level }}>{{ $b->data->text }}</h{{ $b->data->level }}>
+                    @break
+                    @case('paragraph')
+                        <p>{{ $b->data->text }}</p>
+                    @break
+                    @case('list')
+                        @if ($b->data->style === 'ordered')
+                            <ol>
+                                @foreach ($b->data->items as $li)
+                                    <li>{{ $li }}</li>
+                                @endforeach
+                            </ol>
+                        @elseif ($b->data->style === 'unordered')
+                            <ul>
+                                @foreach ($b->data->items as $li)
+                                    <li>{{ $li }}</li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    @break
+                    @case('embed')
+                        <div class="ratio ratio-16x9 mb-3">
+                            <iframe src="{{ $b->data->embed }}"></iframe>
+                        </div>
+                    @break
+                @endswitch
+            @endforeach
         </div>
 
         <div class="card mb-4">

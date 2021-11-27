@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mission;
 use Illuminate\Http\Request;
 
 class MissionController extends Controller
@@ -13,6 +14,12 @@ class MissionController extends Controller
 
     public function createMission(Request $request)
     {
-        dd($request->input('content'));
+        $content = $request->input('content');
+
+        $mission = new Mission();
+        $mission->content = $content;
+        $mission->save();
+
+        return redirect(route('viewMission', ['id' => $mission->id]));
     }
 }

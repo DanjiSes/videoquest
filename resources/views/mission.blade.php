@@ -65,7 +65,7 @@
                             alt="">
                     </div>
                     <div>
-                        <b class="text-primary">{{ $comment->profile->name }}</b>
+                        <b class="text-primary">{{ $comment->profile->name }} ({{ $comment->profile->soc_type }})</b>
                         <div style="white-space: pre-line">{{ $comment->text }}</div>
                     </div>
                 </div>

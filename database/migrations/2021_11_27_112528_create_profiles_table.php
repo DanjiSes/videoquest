@@ -20,7 +20,7 @@ class CreateProfilesTable extends Migration
             $table->string('soc_type');
             $table->string('soc_uid');
             // Cached
-            $table->string('avatar')->nullable();
+            $table->text('avatar')->nullable();
             $table->string('name')->nullable();
         });
     }

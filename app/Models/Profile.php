@@ -5,6 +5,7 @@ namespace App\Models;
 use Error;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Http;
 use VK\Client\Enums\VKLanguage;
 use VK\Client\VKApiClient;
 
@@ -27,7 +28,9 @@ class Profile extends Model
 
     public function loadInfoFromIg()
     {
-        // https://www.instagram.com/savchenko.dev/?__a=1
+        $userInfo = Http::get('https://www.instagram.com/' . $this->soc_uid . '/?__a=1')->json();
+        $this->name = $userInfo['graphql']['user']['full_name'];
+        $this->avatar = $userInfo['graphql']['user']['profile_pic_url'];
     }
 
     public function loadInfoFromVk()

@@ -5,6 +5,8 @@ namespace App\Models;
 use Error;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use InstagramScraper\Instagram;
+use Phpfastcache\Helper\Psr16Adapter;
 use VK\Client\Enums\VKLanguage;
 use VK\Client\VKApiClient;
 
@@ -30,7 +32,9 @@ class Profile extends Model
 
     public function loadInfoFromInstagram()
     {
-        $instagram = new \InstagramScraper\Instagram(new \GuzzleHttp\Client());
+        $instagram = Instagram::withCredentials(new \GuzzleHttp\Client(), env('INST_USERNAME'), env('INST_PASSWORD'), new Psr16Adapter('Files'));
+        $instagram->login();
+        $instagram->saveSession();
         $account = $instagram->getAccount($this->soc_uid);
 
         $this->name = $account->getFullName();

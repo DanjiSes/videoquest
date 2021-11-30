@@ -30,7 +30,8 @@
                                 </td>
                                 <td style="width: 50px;"> {{ $mission->comments()->count() }} </td>
                                 <td class="text-right">
-                                    <div class="btn btn-sm btn-outline-danger">Удалить</div>
+                                    <a class="btn btn-sm btn-outline-danger"
+                                        href="{{ route('deleteMission', $mission->id) }}">Удалить</a>
                                     <a class="btn btn-sm btn-outline-success"
                                         href="{{ route('editMissionForm', $mission->id) }}">Изменить</a>
                                 </td>

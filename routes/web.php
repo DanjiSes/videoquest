@@ -36,6 +36,11 @@ Route::get('/admin/missions/list', function () {
     return view('admin.mission.list', ['missions' => $missions]);
 })->name('missionsList');
 
+Route::get('/admin/missions/{id}/delete', function ($id) {
+    Mission::findOrFail($id)->delete();
+    return redirect(route('missionsList'));
+})->name('deleteMission');
+
 Route::post('/missions', 'MissionController@createMission')->name('createMission');
 Route::post('/missions/{id}/edit', 'MissionController@editMission')->name('editMission');
 

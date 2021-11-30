@@ -43,8 +43,19 @@ class MissionController extends Controller
     {
         $content = $request->input('content');
 
+        $report_url = $request->input('report_url', null);
+        $report_method = $request->input('report_method', null);
+        $report_body = $request->input('report_body', null);
+        $report_headers = $request->input('report_headers', null);
+
         $mission = new Mission();
         $mission->content = $content;
+
+        $mission->report_url = $report_url;
+        $mission->report_method = $report_method;
+        $mission->report_body = $report_body;
+        $mission->report_headers = $report_headers;
+
         $mission->save();
 
         return redirect(route('viewMission', ['id' => $mission->id]));

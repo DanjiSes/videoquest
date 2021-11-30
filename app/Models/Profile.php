@@ -13,20 +13,23 @@ class Profile extends Model
 {
     use HasFactory;
 
+    public const VK = 'vk';
+    public const INST = 'inst';
+
     public function loadInfo()
     {
         if ($this->soc_uid === null) {
             throw new Error('User id was not provided');
         }
 
-        if ($this->soc_type === 'vk') {
+        if ($this->soc_type === static::VK) {
             $this->loadInfoFromVk();
-        } else if ($this->soc_type === 'ig') {
-            $this->loadInfoFromIg();
+        } else if ($this->soc_type === static::INST) {
+            $this->loadInfoFromInstagram();
         }
     }
 
-    public function loadInfoFromIg()
+    public function loadInfoFromInstagram()
     {
         $instagram = new \InstagramScraper\Instagram(new \GuzzleHttp\Client());
         $account = $instagram->getAccount($this->soc_uid);

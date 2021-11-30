@@ -17,6 +17,11 @@ class CreateMissionsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->json('content');
+            // Report request
+            $table->string('report_url')->nullable();
+            $table->string('report_method')->nullable();
+            $table->text('report_body')->nullable();
+            $table->string('report_headers')->nullable();
         });
     }
 

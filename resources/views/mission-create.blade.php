@@ -16,6 +16,28 @@
                 <input type="text" name="content" value="" hidden>
             </div>
 
+            <h4>Отправлять запрос при добавлении коммента:</h4>
+
+            <div class="mb-3 input-group">
+                <select name="report_method" class="form-control" style="max-width: 100px">
+                    <option value="POST">POST</option>
+                    <option value="GET">GET</option>
+                </select>
+                <input type="url" name="report_url" class="form-control" placeholder="Введите URL адрес">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Тело запроса</label>
+                <p><small class="text-muted">%uid% - идентификатор пользователя</small></p>
+                <p><small class="text-muted">%soc% - идентификатор соц сети (vk, inst)</small></p>
+                <p><small class="text-muted">%name% - имя пользователя</small></p>
+                <textarea name="report_body" rows="10" class="form-control"></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Заголовки (JSON)</label>
+                <textarea name="report_headers" rows="10" class="form-control"></textarea>
+            </div>
+
             <button type="submit" class="btn btn-primary d-block ms-auto">Добавить</button>
         </form>
     </div>

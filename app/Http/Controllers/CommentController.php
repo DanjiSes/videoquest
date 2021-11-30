@@ -12,6 +12,7 @@ class CommentController extends Controller
 {
     public function createComment(Request $request)
     {
+        $isApiRequest = $request->header('Accept') === 'application/json';
         $request->validate([
             'text' => 'required',
             'mission_id' => 'required|exists:missions,id',
@@ -54,6 +55,10 @@ class CommentController extends Controller
             }
         }
 
+
+        if ($isApiRequest) {
+            return response();
+        }
 
         return redirect()->back();
     }

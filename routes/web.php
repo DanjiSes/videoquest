@@ -30,8 +30,3 @@ Route::post('/missions', 'MissionController@createMission')->name('createMission
 // Add comments
 
 Route::post('/comments', 'CommentController@createComment')->name('createComment');
-
-Route::get('/proxy', function (Request $request) {
-    $url = $request->input('url');
-    readfile('http://corsproxy:8080/');
-});

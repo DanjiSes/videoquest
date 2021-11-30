@@ -50,7 +50,7 @@
                     <div class="rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
                         <img style="width: 100%; heigth: 100%; object-fit: cover" src="{{ $profile->avatar }}" alt="">
                     </div>
-                    <form action="{{ route('createComment') }}" method="POST" style="flex: auto">
+                    <form action="{{ route('createComment') }}" method="POST" style="flex: auto" id="comment-form">
                         @csrf
                         <input type="hidden" name="mission_id" value="{{ $mission_id }}">
                         <input type="hidden" name="profile_id" value="{{ $profile->id }}">
@@ -92,5 +92,14 @@
         @endforelse
 
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+    <script>
+        $('#comment-form').on('submit', function(e) {
+            e.preventDefault();
+
+
+        });
+    </script>
 
 @endsection

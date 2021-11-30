@@ -16,7 +16,9 @@
                 <input type="text" name="content" value="" hidden>
             </div>
 
-            <h4>Отправлять запрос при добавлении коммента:</h4>
+            <hr>
+
+            <label class="form-label">Отправлять запрос при добавлении коммента:</label>
 
             <div class="mb-3 input-group">
                 <select name="report_method" class="form-control" style="max-width: 100px">

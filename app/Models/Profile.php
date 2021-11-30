@@ -5,7 +5,6 @@ namespace App\Models;
 use Error;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Http;
 use VK\Client\Enums\VKLanguage;
 use VK\Client\VKApiClient;
 

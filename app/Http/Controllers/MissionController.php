@@ -35,13 +35,15 @@ class MissionController extends Controller
             'content' => $content,
             'comments' => $comments,
             'mission_id' => $mission->id,
-            'profile' => $profile
+            'profile' => $profile,
+            'mission' => $mission
         ]);
     }
 
     public function createMission(Request $request)
     {
         $content = $request->input('content');
+        $name = $request->input('name');
 
         $report_url = $request->input('report_url', null);
         $report_method = $request->input('report_method', null);
@@ -50,6 +52,7 @@ class MissionController extends Controller
 
         $mission = new Mission();
         $mission->content = $content;
+        $mission->name = $name;
 
         $mission->report_url = $report_url;
         $mission->report_method = $report_method;

@@ -7,6 +7,8 @@
     </script>
 
     <div class="container py-5">
+        <h1>{{ $mission->name }}</h1>
+
         <div class="mb-4">
             @foreach ($content->blocks as $b)
                 @switch($b->type)

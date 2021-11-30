@@ -8,6 +8,11 @@
         @csrf
 
         <div class="mb-3">
+            <label>Название:</label>
+            <input type="text" name="name" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
             <label>Контент:</label>
             <div class="form-control" style="height: auto !important;">
                 <div id="editorjs"></div>

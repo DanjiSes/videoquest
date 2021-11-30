@@ -29,7 +29,7 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Тело запроса</label>
+                <label class="form-label">Тело запроса (JSON)</label>
                 <p><small class="text-muted">%uid% - идентификатор пользователя</small></p>
                 <p><small class="text-muted">%soc% - идентификатор соц сети (vk, inst)</small></p>
                 <p><small class="text-muted">%name% - имя пользователя</small></p>

@@ -22,7 +22,7 @@ Route::get('/mission/{id}', 'MissionController@viewMission')->name('viewMission'
 // Missions CRUD
 
 Route::get('/missions/create', function () {
-    return view('mission-create');
+    return view('admin.mission.create');
 })->name('createMissionForm');
 
 Route::post('/missions', 'MissionController@createMission')->name('createMission');

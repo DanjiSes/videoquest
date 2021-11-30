@@ -14,4 +14,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/coments', 'CommentController@createComment')->name('apiCommentCreate');
+Route::post('/coments', 'CommentController@createComment')->name('apiCommentCreate');

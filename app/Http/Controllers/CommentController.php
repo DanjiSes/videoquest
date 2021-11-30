@@ -57,7 +57,7 @@ class CommentController extends Controller
 
 
         if ($isApiRequest) {
-            return response();
+            return response('');
         }
 
         return redirect()->back();

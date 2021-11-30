@@ -58,7 +58,8 @@
                             <label for="text" class="mb-2">
                                 <b class="text-primary">{{ $profile->name }}</b>
                             </label>
-                            <textarea rows="6" class="form-control" placeholder="Ваш комментарий" name="text"></textarea>
+                            <textarea rows="6" class="form-control" placeholder="Ваш комментарий" name="text"
+                                required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary d-block ms-auto">Отправить</button>
                     </form>
@@ -69,35 +70,90 @@
 
         <h2 class="h3">Комментарии:</h2>
 
-        @forelse ($comments as $comment)
+        <div class="comments-list">
 
-            <div class="card mb-3">
-                <div class="card-body d-flex">
-                    <div class="rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
-                        <img style="width: 100%; heigth: 100%; object-fit: cover" src="{{ $comment->profile->avatar }}"
-                            alt="">
-                    </div>
-                    <div>
-                        <b class="text-primary">{{ $comment->profile->name }}
-                            ({{ $comment->profile->soc_type }})</b>
-                        <div style="white-space: pre-line">{{ $comment->text }}</div>
+            @forelse ($comments as $comment)
+
+                <div class="card mb-3">
+                    <div class="card-body d-flex">
+                        <div class="rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
+                            <img style="width: 100%; heigth: 100%; object-fit: cover"
+                                src="{{ $comment->profile->avatar }}" alt="">
+                        </div>
+                        <div>
+                            <b class="text-primary">{{ $comment->profile->name }}
+                                ({{ $comment->profile->soc_type }})</b>
+                            <div style="white-space: pre-line">{{ $comment->text }}</div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        @empty
+            @empty
 
-            <div>Комментариев пока нет. Будь первым!</div>
+                <div>Комментариев пока нет. Будь первым!</div>
 
-        @endforelse
+            @endforelse
+        </div>
+
 
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
     <script>
+        const __backendData =
+            {!! json_encode([
+    'mission_id' => $mission_id,
+    'profile_id' => $profile !== null ? $profile->id : null,
+    'profile_name' => $profile !== null ? $profile->name : null,
+    'profile_avatar' => $profile !== null ? $profile->avatar : null,
+    'profile_soc_type' => $profile !== null ? $profile->soc_type : null,
+    'post_url' => route('apiCommentCreate'),
+]) !!};
+        const $submitButton = $('#comment-form button[type="submit"]');
+
         $('#comment-form').on('submit', function(e) {
             e.preventDefault();
 
+            $submitButton.text('Отправка...');
+            $submitButton.attr('disabled', true);
+
+            const text = this.text.value;
+            __backendData.text = text;
+
+            $.ajax(__backendData.post_url, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json'
+                    },
+                    data: {
+                        text: text,
+                        mission_id: __backendData.mission_id,
+                        profile_id: __backendData.profile_id,
+                    }
+                })
+                .done(function() {
+                    $('.comments-list').prepend(`
+                        <div class="card mb-3">
+                            <div class="card-body d-flex">
+                                <div class="rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
+                                    <img style="width: 100%; heigth: 100%; object-fit: cover" src="${__backendData.profile_avatar}"
+                                        alt="">
+                                </div>
+                                <div>
+                                    <b class="text-primary">${__backendData.profile_name}
+                                        (${__backendData.profile_soc_type})</b>
+                                    <div style="white-space: pre-line">${__backendData.text}</div>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                })
+                .fail(function() {
+                    alert("Ошибка сервера");
+                })
+                .always(function() {
+                    $('#comment-form').closest('.card-body').remove();
+                });
 
         });
     </script>

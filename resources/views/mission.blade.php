@@ -2,6 +2,10 @@
 
 @section('content')
 
+    <script>
+        history.pushState("", document.title, window.location.pathname);
+    </script>
+
     <div class="container py-5">
         <div class="mb-4">
             @foreach ($content->blocks as $b)

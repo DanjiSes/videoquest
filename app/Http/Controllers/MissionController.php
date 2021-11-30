@@ -63,4 +63,28 @@ class MissionController extends Controller
 
         return redirect(route('viewMission', ['id' => $mission->id]));
     }
+
+    public function editMission($id, Request $request)
+    {
+        $content = $request->input('content');
+        $name = $request->input('name');
+
+        $report_url = $request->input('report_url', null);
+        $report_method = $request->input('report_method', null);
+        $report_body = $request->input('report_body', null);
+        $report_headers = $request->input('report_headers', null);
+
+        $mission = Mission::findOrFail($id);
+        $mission->content = $content;
+        $mission->name = $name;
+
+        $mission->report_url = $report_url;
+        $mission->report_method = $report_method;
+        $mission->report_body = $report_body;
+        $mission->report_headers = $report_headers;
+
+        $mission->save();
+
+        return redirect()->back();
+    }
 }

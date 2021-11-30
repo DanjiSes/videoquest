@@ -26,12 +26,18 @@ Route::get('/admin/missions/create', function () {
     return view('admin.mission.create');
 })->name('createMissionForm');
 
+Route::get('/admin/missions/{id}/edit', function ($id) {
+    $mission = Mission::findOrFail($id);
+    return view('admin.mission.edit', ['mission' => $mission]);
+})->name('editMissionForm');
+
 Route::get('/admin/missions/list', function () {
-    $missions = Mission::orderBy('created_at', 'desc');
+    $missions = Mission::orderBy('created_at', 'desc')->get();
     return view('admin.mission.list', ['missions' => $missions]);
 })->name('missionsList');
 
 Route::post('/missions', 'MissionController@createMission')->name('createMission');
+Route::post('/missions/{id}/edit', 'MissionController@editMission')->name('editMission');
 
 // Add comments
 

@@ -23,7 +23,7 @@
                             <tr>
                                 <td style="width: 50px;"> {{ $mission->id }} </td>
                                 <td>
-                                    <a href="{{ route('viewMission', $mission->id) }}" target="_blank"
+                                    <a href="{{ route('viewMission', $mission->slug) }}" target="_blank"
                                         rel="noopener noreferrer">
                                         {{ $mission->name }}
                                     </a>

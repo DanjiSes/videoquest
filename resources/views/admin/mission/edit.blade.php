@@ -14,7 +14,7 @@
 
         <div class="mb-3">
             <label>Ссылка (уникальный, латиницей, вместо пробелов испльзовать тире "-"):</label>
-            <input type="text" name="slug" class="form-control" required>
+            <input type="text" name="slug" class="form-control" value="{{ $mission->slug }}" required>
         </div>
 
         <div class="mb-3">
@@ -59,6 +59,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/header@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/embed@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@canburaks/text-align-editorjs@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/marker@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/underline@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
 
     <script>
         const editor = new EditorJS({
@@ -68,6 +72,13 @@
                 list: List,
                 textAlign: TextAlign,
                 embed: Embed,
+                Marker: {
+                    class: Marker,
+                    shortcut: 'CMD+SHIFT+M',
+                },
+                underline: Underline,
+                delimiter: Delimiter,
+                image: SimpleImage
             },
             data: JSON.parse(document.querySelector('[name="content"]').value) || {},
         })

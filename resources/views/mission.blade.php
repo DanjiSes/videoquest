@@ -3,7 +3,7 @@
 @section('content')
 
     <script>
-        history.pushState("", document.title, window.location.pathname);
+        history.replaceState("", document.title, window.location.pathname);
     </script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -42,6 +42,12 @@
                             <iframe src="{{ $b->data->embed }}" allowfullscreen></iframe>
                         </div>
                     @break
+                    @case('delimiter')
+                        <hr />
+                    @break
+                    @case('image')
+                        <img src="{{ $b->data->url }}" alt="" class="img-fluid w-100 rounded my-3">
+                    @break
                 @endswitch
             @endforeach
         </div>
@@ -54,7 +60,12 @@
 
                 <div class="card-body d-flex">
                     <div class="rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
-                        <img style="width: 100%; heigth: 100%; object-fit: cover" src="{{ $profile->avatar }}" alt="">
+                        @if ($profile->soc_type === 'inst')
+                            <img style="width: 100%; heigth: 100%; object-fit: cover" src="{{ asset('instagram.png') }}"
+                                alt="">
+                        @else
+                            <img style="width: 100%; heigth: 100%; object-fit: cover" src="{{ $profile->avatar }}" alt="">
+                        @endif
                     </div>
                     <form action="{{ route('createComment') }}" method="POST" style="flex: auto" id="comment-form">
                         @csrf
@@ -84,12 +95,13 @@
                     @case('vk')
                         <div class="card mb-3">
                             <div class="card-body d-flex">
-                                <div class="rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
+                                <a href="https://vk.com/id{{ $comment->profile->soc_uid }}" target="_blank"
+                                    class="d-block rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
                                     <img style="width: 100%; heigth: 100%; object-fit: cover"
                                         src="{{ $comment->profile->avatar }}" alt="">
-                                </div>
+                                </a>
                                 <div>
-                                    <a href="https://vk.com/{{ $comment->profile->soc_uid }}" target="_blank"
+                                    <a href="https://vk.com/id{{ $comment->profile->soc_uid }}" target="_blank"
                                         style="text-decoration: none">
                                         <b class="text-primary">
                                             <span class="me-2">{{ $comment->profile->name }}</span>
@@ -104,12 +116,13 @@
                     @case('inst')
                         <div class="card mb-3">
                             <div class="card-body d-flex">
-                                <div class="rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
+                                <a href="https://instagram.com/{{ $comment->profile->soc_username }}" target="_blank"
+                                    class="d-block rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
                                     <img style="width: 100%; heigth: 100%; object-fit: cover"
-                                        src="{{ $comment->profile->avatar }}" alt="">
-                                </div>
+                                        src="{{ asset('instagram.png') }}" alt="">
+                                </a>
                                 <div>
-                                    <a href="https://instagram.com/{{ $comment->profile->soc_uid }}" target="_blank"
+                                    <a href="https://instagram.com/{{ $comment->profile->soc_username }}" target="_blank"
                                         style="text-decoration: none">
                                         <b class="text-primary">
                                             <span class="me-2">{{ $comment->profile->name }}</span>
@@ -173,11 +186,12 @@
                                 @case('vk')
                                     <div class="card mb-3">
                                         <div class="card-body d-flex">
-                                            <div class="rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
+                                            <a href="https://vk.com/id{{ $profile->soc_uid }}" target="_blank"
+                                                class="d-block rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
                                                 <img style="width: 100%; heigth: 100%; object-fit: cover" src="{{ $profile->avatar }}" alt="">
-                                            </div>
+                                            </a>
                                             <div>
-                                                <a href="https://vk.com/{{ $profile->soc_uid }}" target="_blank" style="text-decoration: none">
+                                                <a href="https://vk.com/id{{ $profile->soc_uid }}" target="_blank" style="text-decoration: none">
                                                     <b class="text-primary">
                                                         <span class="me-2">{{ $profile->name }}</span>
                                                         <i class="fa-brands fa-vk"></i>
@@ -191,11 +205,13 @@
                                 @case('inst')
                                     <div class="card mb-3">
                                         <div class="card-body d-flex">
-                                            <div class="rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
-                                                <img style="width: 100%; heigth: 100%; object-fit: cover" src="{{ $profile->avatar }}" alt="">
-                                            </div>
+                                            <a href="https://instagram.com/{{ $profile->soc_username }}" target="_blank"
+                                                class="d-block rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
+                                                <img style="width: 100%; heigth: 100%; object-fit: cover" src="{{ asset('instagram.png') }}"
+                                                    alt="">
+                                            </a>
                                             <div>
-                                                <a href="https://instagram.com/{{ $profile->soc_uid }}" target="_blank"
+                                                <a href="https://instagram.com/{{ $profile->soc_username }}" target="_blank"
                                                     style="text-decoration: none">
                                                     <b class="text-primary">
                                                         <span class="me-2">{{ $profile->name }}</span>
@@ -218,7 +234,9 @@
                     alert("Ошибка сервера");
                 })
                 .always(function() {
-                    $('#comment-form').closest('.card-body').remove();
+                    $submitButton.text('Отправить');
+                    $submitButton.attr('disabled', false);
+                    $('#comment-form').trigger('reset');
                 });
 
         });

@@ -31,7 +31,7 @@ class CommentController extends Controller
         $comment->save();
 
         $mission = Mission::find($mission_id);
-        $profile = Profile::find($mission_id);
+        $profile = Profile::find($profile_id);
 
         $report_url = $mission->report_url;
         $report_method = $mission->report_method;

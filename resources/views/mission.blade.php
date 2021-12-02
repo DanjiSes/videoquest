@@ -47,7 +47,7 @@
         </div>
 
         <div class="card mb-4">
-            <div class="card-header">
+            <div class="card-header" id="comments-count">
                 {{ $comments->count() }} комментариев
             </div>
             @if ($profile)
@@ -168,20 +168,51 @@
                 })
                 .done(function() {
                     $('.comments-list').prepend(`
-                        <div class="card mb-3">
-                            <div class="card-body d-flex">
-                                <div class="rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
-                                    <img style="width: 100%; heigth: 100%; object-fit: cover" src="${__backendData.profile_avatar}"
-                                        alt="">
-                                </div>
-                                <div>
-                                    <b class="text-primary">${__backendData.profile_name}
-                                        (${__backendData.profile_soc_type})</b>
-                                    <div style="white-space: pre-line">${__backendData.text}</div>
-                                </div>
-                            </div>
-                        </div>
+                        @if ($profile)
+                            @switch($profile->soc_type)
+                                @case('vk')
+                                    <div class="card mb-3">
+                                        <div class="card-body d-flex">
+                                            <div class="rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
+                                                <img style="width: 100%; heigth: 100%; object-fit: cover" src="{{ $profile->avatar }}" alt="">
+                                            </div>
+                                            <div>
+                                                <a href="https://vk.com/{{ $profile->soc_uid }}" target="_blank" style="text-decoration: none">
+                                                    <b class="text-primary">
+                                                        <span class="me-2">{{ $profile->name }}</span>
+                                                        <i class="fa-brands fa-vk"></i>
+                                                    </b>
+                                                </a>
+                                                <div style="white-space: pre-line">${__backendData.text}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @break
+                                @case('inst')
+                                    <div class="card mb-3">
+                                        <div class="card-body d-flex">
+                                            <div class="rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
+                                                <img style="width: 100%; heigth: 100%; object-fit: cover" src="{{ $profile->avatar }}" alt="">
+                                            </div>
+                                            <div>
+                                                <a href="https://instagram.com/{{ $profile->soc_uid }}" target="_blank"
+                                                    style="text-decoration: none">
+                                                    <b class="text-primary">
+                                                        <span class="me-2">{{ $profile->name }}</span>
+                                                        <i class="fa-brands fa-instagram"></i>
+                                                    </b>
+                                                </a>
+                                                <div style="white-space: pre-line">${__backendData.text}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @break
+                            @endswitch
+                        @endif
                     `);
+
+                    const commentsPrevCount = Number.parseInt($('#comments-count').text());
+                    $('#comments-count').text(`${commentsPrevCount + 1} комментариев`);
                 })
                 .fail(function() {
                     alert("Ошибка сервера");

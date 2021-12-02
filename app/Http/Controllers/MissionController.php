@@ -15,7 +15,13 @@ class MissionController extends Controller
         $profile = null;
 
         if ($soc_type !== null && $soc_uid !== null) {
-            $profile = Profile::where('soc_type', $soc_type)->where('soc_uid', $soc_uid)->first();
+            $profile = Profile::where([
+                ['soc_type', '=', $soc_type],
+                ['soc_uid', '=', $soc_uid]
+            ])->orWhere(([
+                ['soc_type', '=', $soc_type],
+                ['soc_username', '=', $soc_uid]
+            ]))->first();
 
             if ($profile === null) {
                 $profile = new Profile();

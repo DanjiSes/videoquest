@@ -19,6 +19,7 @@ class CreateProfilesTable extends Migration
             // Additionals
             $table->string('soc_type');
             $table->string('soc_uid');
+            $table->string('soc_username')->nullable();
             // Cached
             $table->text('avatar')->nullable();
             $table->string('name')->nullable();

@@ -60,7 +60,7 @@
                 header: Header,
                 list: List,
                 textAlign: TextAlign,
-                class: Embed,
+                embed: Embed,
             },
             data: {},
         })

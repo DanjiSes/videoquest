@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <h1>Создать миссию</h1>
+    <h1>Редактировать миссию</h1>
 
     <form action="{{ route('editMission', $mission->id) }}" method="POST" id="content-form">
         @csrf
@@ -62,7 +62,7 @@
                 header: Header,
                 list: List,
                 textAlign: TextAlign,
-                class: Embed,
+                embed: Embed,
             },
             data: JSON.parse(document.querySelector('[name="content"]').value) || {},
         })

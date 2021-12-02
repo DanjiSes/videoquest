@@ -8,7 +8,12 @@ use Illuminate\Http\Request;
 
 class MissionController extends Controller
 {
-    public function viewMission(int $id, Request $request)
+    public static function slugify($string)
+    {
+        return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $string), '-'));
+    }
+
+    public function viewMission(string $slug, Request $request)
     {
         $soc_type = $request->get('utm_s_type');
         $soc_uid = $request->get('utm_s_uid');
@@ -32,7 +37,7 @@ class MissionController extends Controller
             }
         }
 
-        $mission = Mission::findOrFail($id);
+        $mission = Mission::where('slug', $slug)->first();
         $content = json_decode($mission->content);
         $comments = $mission->comments()->orderBy('created_at', 'desc')->get();
 
@@ -48,6 +53,7 @@ class MissionController extends Controller
     public function createMission(Request $request)
     {
         $content = $request->input('content');
+        $slug = $request->input('slug');
         $name = $request->input('name');
 
         $report_url = $request->input('report_url', null);
@@ -57,6 +63,7 @@ class MissionController extends Controller
 
         $mission = new Mission();
         $mission->content = $content;
+        $mission->slug = static::slugify($slug);
         $mission->name = $name;
 
         $mission->report_url = $report_url;
@@ -66,13 +73,14 @@ class MissionController extends Controller
 
         $mission->save();
 
-        return redirect(route('viewMission', ['id' => $mission->id]));
+        return redirect(route('viewMission', ['slug' => $mission->slug]));
     }
 
     public function editMission($id, Request $request)
     {
         $content = $request->input('content');
         $name = $request->input('name');
+        $slug = $request->input('slug');
 
         $report_url = $request->input('report_url', null);
         $report_method = $request->input('report_method', null);
@@ -82,6 +90,7 @@ class MissionController extends Controller
         $mission = Mission::findOrFail($id);
         $mission->content = $content;
         $mission->name = $name;
+        $mission->slug = static::slugify($slug);
 
         $mission->report_url = $report_url;
         $mission->report_method = $report_method;

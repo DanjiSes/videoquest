@@ -13,6 +13,11 @@
         </div>
 
         <div class="mb-3">
+            <label>Ссылка (уникальный, латиницей, вместо пробелов испльзовать тире "-"):</label>
+            <input type="text" name="slug" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
             <label>Контент:</label>
             <div class="form-control" style="height: auto !important;">
                 <div id="editorjs"></div>

@@ -18,7 +18,7 @@ Route::get('/', function () {
     return redirect(route('createMissionForm'));
 });
 
-Route::get('/mission/{id}', 'MissionController@viewMission')->name('viewMission');
+Route::get('/mission/{slug}', 'MissionController@viewMission')->name('viewMission');
 
 // Missions CRUD
 

@@ -17,6 +17,7 @@ class CreateMissionsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
+            $table->string('slug')->unique();
             $table->json('content');
             // Report request
             $table->string('report_url')->nullable();

@@ -6,6 +6,10 @@
         history.pushState("", document.title, window.location.pathname);
     </script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <div class="container py-5">
         <h1>{{ $mission->name }}</h1>
 
@@ -76,19 +80,48 @@
 
             @forelse ($comments as $comment)
 
-                <div class="card mb-3">
-                    <div class="card-body d-flex">
-                        <div class="rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
-                            <img style="width: 100%; heigth: 100%; object-fit: cover"
-                                src="{{ $comment->profile->avatar }}" alt="">
+                @switch($comment->profile->soc_type)
+                    @case('vk')
+                        <div class="card mb-3">
+                            <div class="card-body d-flex">
+                                <div class="rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
+                                    <img style="width: 100%; heigth: 100%; object-fit: cover"
+                                        src="{{ $comment->profile->avatar }}" alt="">
+                                </div>
+                                <div>
+                                    <a href="https://vk.com/{{ $comment->profile->soc_uid }}" target="_blank"
+                                        style="text-decoration: none">
+                                        <b class="text-primary">
+                                            <span class="me-2">{{ $comment->profile->name }}</span>
+                                            <i class="fa-brands fa-vk"></i>
+                                        </b>
+                                    </a>
+                                    <div style="white-space: pre-line">{{ $comment->text }}</div>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <b class="text-primary">{{ $comment->profile->name }}
-                                ({{ $comment->profile->soc_type }})</b>
-                            <div style="white-space: pre-line">{{ $comment->text }}</div>
+                    @break
+                    @case('inst')
+                        <div class="card mb-3">
+                            <div class="card-body d-flex">
+                                <div class="rounded-circle overflow-hidden me-3" style="width: 50px; height: 50px;">
+                                    <img style="width: 100%; heigth: 100%; object-fit: cover"
+                                        src="{{ $comment->profile->avatar }}" alt="">
+                                </div>
+                                <div>
+                                    <a href="https://instagram.com/{{ $comment->profile->soc_uid }}" target="_blank"
+                                        style="text-decoration: none">
+                                        <b class="text-primary">
+                                            <span class="me-2">{{ $comment->profile->name }}</span>
+                                            <i class="fa-brands fa-instagram"></i>
+                                        </b>
+                                    </a>
+                                    <div style="white-space: pre-line">{{ $comment->text }}</div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    @break
+                @endswitch
 
             @empty
 

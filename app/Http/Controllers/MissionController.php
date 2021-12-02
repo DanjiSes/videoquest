@@ -21,10 +21,9 @@ class MissionController extends Controller
                 $profile = new Profile();
                 $profile->soc_type = $soc_type;
                 $profile->soc_uid = $soc_uid;
+                $profile->loadInfo();
+                $profile->save();
             }
-
-            $profile->loadInfo();
-            $profile->save();
         }
 
         $mission = Mission::findOrFail($id);

@@ -48,6 +48,9 @@
                     @case('image')
                         <img src="{{ $b->data->url }}" alt="" class="img-fluid w-100 rounded my-3">
                     @break
+                    @case('raw')
+                        {!! $b->data->html !!}
+                    @break
                 @endswitch
             @endforeach
         </div>

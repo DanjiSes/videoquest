@@ -63,6 +63,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/underline@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/delimiter@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@editorjs/simple-image@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/raw"></script>
 
     <script>
         const editor = new EditorJS({
@@ -79,6 +80,7 @@
                 underline: Underline,
                 delimiter: Delimiter,
                 image: SimpleImage
+                raw: RawTool,
             },
             data: JSON.parse(document.querySelector('[name="content"]').value) || {},
         })

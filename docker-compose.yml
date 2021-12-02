@@ -16,7 +16,7 @@ services:
       - ./:/app
 
   db:
-    image: mysql
+    image: mariadb
     restart: always
     volumes:
       - dbdata:/var/lib/mysql

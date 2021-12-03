@@ -79,7 +79,7 @@
                 },
                 underline: Underline,
                 delimiter: Delimiter,
-                image: SimpleImage
+                image: SimpleImage,
                 raw: RawTool,
             },
             data: JSON.parse(document.querySelector('[name="content"]').value) || {},

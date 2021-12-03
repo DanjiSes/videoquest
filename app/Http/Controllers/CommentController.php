@@ -42,6 +42,7 @@ class CommentController extends Controller
         $replace_values = [$profile->soc_uid, $profile->soc_type, $profile->name];
 
         $report_body = str_replace($replace_patterns, $replace_values, $report_body);
+        $report_url = str_replace($replace_patterns, $replace_values, $report_url);
         $report_body = json_decode($report_body, true);
         $report_headers = json_decode($report_headers, true);
 
